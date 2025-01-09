@@ -1,0 +1,213 @@
+# Solana AI Agent with Security Module
+
+A secure, extensible AI agent implementation for the Solana blockchain with comprehensive security features.
+
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Security Features](#security-features)
+- [Configuration](#configuration)
+- [Examples](#examples)
+- [Best Practices](#best-practices)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+### AI Agent
+- Solana blockchain integration
+- Real-time market analysis capabilities
+- Automated decision-making framework
+- Transaction execution system
+- State management and monitoring
+- Configurable parameters and strategies
+
+### Security Module
+- Advanced encryption (AES-256-GCM)
+- Rate limiting protection
+- Input validation and sanitization
+- Anomaly detection
+- Comprehensive audit logging
+- Attack pattern detection
+- Origin verification
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd solana-ai-agent
+```
+
+2. Install dependencies:
+```bash
+npm install @solana/web3.js
+```
+
+## Usage
+
+### Basic AI Agent Setup
+
+```javascript
+const { SolanaAIAgent } = require('./solana-ai-agent.js');
+const { Keypair } = require('@solana/web3.js');
+
+const main = async () => {
+    // Generate or import your keypair
+    const agentKeypair = Keypair.generate();
+    
+    // Initialize the AI agent
+    const agent = new SolanaAIAgent(
+        'https://api.devnet.solana.com',
+        agentKeypair
+    );
+
+    // Start the agent
+    await agent.initialize();
+    agent.run();
+};
+
+main();
+```
+
+### Implementing Security
+
+```javascript
+const AIAgentSecurity = require('./ai-agent-security.js');
+
+// Initialize security module
+const security = new AIAgentSecurity({
+    maxRequestsPerMinute: 100,
+    allowedOrigins: ['https://yourdomain.com'],
+    enableAuditLog: true
+});
+
+// Secure your data
+async function secureOperation() {
+    // Encrypt sensitive data
+    const encrypted = await security.encryptData({
+        decision: 'buy',
+        amount: 1000
+    });
+
+    // Validate input
+    const safeInput = security.validateInput(rawInput);
+
+    // Check for anomalies
+    if (!security.detectAnomalies(safeInput, { timestamp: Date.now() })) {
+        // Process the request
+    }
+}
+```
+
+## Security Features
+
+### Encryption
+- AES-256-GCM encryption for sensitive data
+- Secure key management
+- Data integrity verification through authentication tags
+
+### Rate Limiting
+- Configurable request limits
+- Time-based tracking
+- Protection against DoS attacks
+
+### Input Validation
+- Payload size validation
+- XSS protection
+- Injection prevention
+- String sanitization
+
+### Anomaly Detection
+- Pattern-based analysis
+- Behavioral monitoring
+- Configurable thresholds
+- Unusual activity detection
+
+### Audit Logging
+- Detailed security event logging
+- Timestamp-based tracking
+- Log rotation
+- Configurable log retention
+
+## Configuration
+
+### AI Agent Configuration
+```javascript
+{
+    endpoint: 'https://api.devnet.solana.com', // Solana network endpoint
+    // Add your keypair configuration
+    // Add other agent-specific settings
+}
+```
+
+### Security Configuration
+```javascript
+{
+    maxRequestsPerMinute: 100,
+    maxPayloadSize: 1024 * 1024, // 1MB
+    allowedOrigins: ['https://yourdomain.com'],
+    enableAuditLog: true,
+    anomalyDetectionThreshold: 0.8
+}
+```
+
+## Examples
+
+### Market Analysis Implementation
+```javascript
+async function analyzeMarket() {
+    const analysis = await agent.analyzeMarketConditions();
+    const decision = await agent.makeDecision(analysis);
+    
+    if (decision.action !== 'hold') {
+        await agent.executeTransaction(decision.params);
+    }
+}
+```
+
+### Secure Data Handling
+```javascript
+// Encrypt sensitive data
+const encrypted = await security.encryptData(sensitiveData);
+
+// Store encrypted data
+saveToDatabase(encrypted);
+
+// Later, decrypt the data
+const decrypted = await security.decryptData(encrypted);
+```
+
+## Best Practices
+
+1. **Key Management**
+   - Securely store your Solana keypair
+   - Rotate encryption keys regularly
+   - Use environment variables for sensitive data
+
+2. **Rate Limiting**
+   - Set appropriate rate limits based on your use case
+   - Implement exponential backoff for retries
+
+3. **Security Monitoring**
+   - Regularly review audit logs
+   - Set up alerts for security events
+   - Monitor for unusual patterns
+
+4. **Data Validation**
+   - Always validate input data
+   - Implement proper error handling
+   - Log validation failures
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+[MIT License](LICENSE) - feel free to use this project for your own purposes.
